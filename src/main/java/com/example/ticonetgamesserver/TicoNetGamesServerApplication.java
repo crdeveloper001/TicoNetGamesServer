@@ -13,7 +13,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-
 @ServletComponentScan
 @EnableMongoRepositories(basePackages = {"com.example.ticonetgamesserver.Repositories"})
 @SpringBootApplication()
@@ -31,7 +30,7 @@ public class TicoNetGamesServerApplication {
             http.csrf().disable()
                     .addFilterAfter(new JWTAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class)
                     .authorizeRequests()
-                    .antMatchers(HttpMethod.POST, "/user").permitAll()
+                    .antMatchers(HttpMethod.POST, "/api/v1/AuthenticationServer").permitAll()
                     .anyRequest().authenticated();
         }
     }

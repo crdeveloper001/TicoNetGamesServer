@@ -47,9 +47,7 @@ public class UsersService implements IUsers {
     public UsersDTO GenerateNewUser(UsersDTO user) {
 
         try{
-
             user.setUserRegistrationData(new Date());
-
           usersRepositories.save(user);
 
           return user;

@@ -2,9 +2,11 @@ package com.example.ticonetgamesserver.Controllers;
 
 import com.example.ticonetgamesserver.Models.CredentialsDTO;
 import com.example.ticonetgamesserver.Models.UsersDTO;
+import com.example.ticonetgamesserver.Services.AutenticationService;
+import com.example.ticonetgamesserver.Utilities.JwtGeneration;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import org.apache.catalina.User;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.GrantedAuthority;
@@ -16,43 +18,43 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
+@CrossOrigin(origins = "*",allowedHeaders = "*")
 @RequestMapping("api/v1/AuthenticationServer")
 public class Authentication {
+
+    @Autowired
+    private AutenticationService _autenticationService;
+
 
     @GetMapping()
     public ResponseEntity<?> GetUser(){
         return new ResponseEntity<>("Hello World", HttpStatus.OK);
     }
 
-    @PostMapping("user")
-    public CredentialsDTO login(@RequestBody CredentialsDTO credentials) {
+    @PostMapping()
+    @ResponseBody
+    public ResponseEntity<?> login(@RequestBody CredentialsDTO credentials) {
 
-        String token = getJWTToken(credentials.getEmail());
-        CredentialsDTO payload = new CredentialsDTO();
-        payload.setEmail(credentials.getEmail());
-        payload.setPass(token);
-        return credentials;
+        UsersDTO validationPayload = new UsersDTO();
+
+        validationPayload = _autenticationService.AuthenticateUser(credentials);
+
+
+        if (validationPayload != null){
+
+            return new ResponseEntity<>(validationPayload,HttpStatus.OK);
+
+        }else if( validationPayload == null){
+
+            return new ResponseEntity<>("EL usuario es incorrecto o no esta registrado en la base de datos",HttpStatus.NOT_FOUND);
+        }else{
+            return new ResponseEntity<>("Ocurrio un error al autenticar!! o su solicitud no es valida",HttpStatus.FORBIDDEN);
+        }
+
+
+
 
     }
 
-    private String getJWTToken(String username) {
-        String secretKey = "mySecretKey";
-        List<GrantedAuthority> grantedAuthorities = AuthorityUtils
-                .commaSeparatedStringToAuthorityList("ROLE_USER");
 
-        String token = Jwts
-                .builder()
-                .setId("softtekJWT")
-                .setSubject(username)
-                .claim("authorities",
-                        grantedAuthorities.stream()
-                                .map(GrantedAuthority::getAuthority)
-                                .collect(Collectors.toList()))
-                .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + 600000))
-                .signWith(SignatureAlgorithm.HS512,
-                        secretKey.getBytes()).compact();
-
-        return "Bearer " + token;
-    }
 }

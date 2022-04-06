@@ -1,12 +1,14 @@
 package com.example.ticonetgamesserver.Models;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@Data
 public class CredentialsDTO {
 
-    private String email;
-    private String pass;
+    private String Mail;
+    private String Password;
 }
