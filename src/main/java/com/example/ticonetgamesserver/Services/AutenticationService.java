@@ -17,19 +17,19 @@ public class AutenticationService implements IAutentication {
     @Autowired
     private UsersRepositories usersRepositories;
 
-
     @Override
     public UsersDTO AuthenticateUser(CredentialsDTO credentials) {
 
-        //buscar usuario especifico
+        // buscar usuario especifico
         UsersDTO UserInformationGeneral = new UsersDTO();
         UserInformationGeneral = usersRepositories.getUserInformationByMail(credentials.getMail());
 
-        //variables globales para todos los usuarios
-        //List<UsersDTO> userDBContext = null;
-        //userDBContext = usersRepositories.findAll();
+        // variables globales para todos los usuarios
+        // List<UsersDTO> userDBContext = null;
+        // userDBContext = usersRepositories.findAll();
 
-        if (credentials.getMail().equals(UserInformationGeneral.getMail()) && credentials.getPassword().equals(UserInformationGeneral.getPassword())){
+        if (credentials.getMail().equals(UserInformationGeneral.getMail())
+                && credentials.getPassword().equals(UserInformationGeneral.getPassword())) {
 
             String token = getJWTToken.GetAccessToken(credentials.getMail());
 
@@ -43,13 +43,10 @@ public class AutenticationService implements IAutentication {
 
             return UserSuccessPayload;
 
-        }else{
+        } else {
 
             return null;
         }
-
-
-
 
     }
 }
