@@ -9,26 +9,26 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @CrossOrigin(origins = "*",allowedHeaders = "*")
-@RequestMapping(path = "api/v1/Games")
+@RequestMapping(path = "Games")
 public class GamesController {
 
     @Autowired
     private GamesService gamesService;
 
-    @GetMapping()
+    @GetMapping("GetGames")
     public ResponseEntity<?> GetGames(){
 
         return new ResponseEntity<>(gamesService.AllGames(), HttpStatus.OK);
     }
 
-    @PostMapping()
+    @PostMapping("CreateGame")
     @ResponseBody
     public ResponseEntity<?> PostGame(@RequestBody GamesDTO game){
 
         return new ResponseEntity<>(gamesService.GenerateNewGame(game),HttpStatus.CREATED);
 
     }
-    @PutMapping()
+    @PutMapping("UpdateGame")
     public ResponseEntity<?> PutGame(@RequestBody GamesDTO gameInfo){
 
         return new ResponseEntity<>(gamesService.UpdateGameInformation(gameInfo),HttpStatus.CREATED);

@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @CrossOrigin(origins = "*",allowedHeaders = "*")
-@RequestMapping(path = "api/v1/Shopping")
+@RequestMapping(path = "Shoppings")
 public class ShoppingController {
 
     @Autowired
@@ -21,7 +21,7 @@ public class ShoppingController {
         return new ResponseEntity<>(shoppingService.AllShops(), HttpStatus.OK);
     }
 
-    @PostMapping()
+    @PostMapping("CreateShop")
     @ResponseBody
     public ResponseEntity<?> PostShop(@RequestBody ShoppingDTO shop){
 

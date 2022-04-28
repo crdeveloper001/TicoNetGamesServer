@@ -30,8 +30,21 @@ public class TicoNetGamesServerApplication {
             http.csrf().disable()
                     .addFilterAfter(new JWTAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class)
                     .authorizeRequests()
-                    .antMatchers(HttpMethod.POST, "/api/v1/AuthenticationServer").permitAll()
-                    .anyRequest().authenticated();
+                    .antMatchers(HttpMethod.POST, "/AuthenticationServer").permitAll()
+                    .antMatchers(HttpMethod.POST,"/Users/CreateUser").permitAll()
+                    .antMatchers(HttpMethod.GET,"/Users").authenticated()
+                    .antMatchers(HttpMethod.PUT,"Users/UpdateUser").authenticated()
+                    .antMatchers(HttpMethod.DELETE,"/Users/{id}").authenticated()
+                    .antMatchers(HttpMethod.GET,"/Games").permitAll()
+                    .antMatchers(HttpMethod.PUT,"/Games/CreateGame").authenticated()
+                    .antMatchers(HttpMethod.PUT,"/Games/UpdateGame").authenticated()
+                    .antMatchers(HttpMethod.DELETE,"/Games/{id}").authenticated()
+                    .antMatchers(HttpMethod.GET,"/Shoppings").authenticated()
+                    .antMatchers(HttpMethod.POST,"/Shoppings/CreateShop").authenticated()
+                    .antMatchers(HttpMethod.PUT,"/Shoppings").authenticated()
+                    .antMatchers(HttpMethod.DELETE,"/Shoppings/{id}").authenticated()
+
+                    .anyRequest().permitAll();
         }
     }
 }

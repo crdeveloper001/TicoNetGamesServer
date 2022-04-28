@@ -19,17 +19,11 @@ import java.util.stream.Collectors;
 
 @RestController
 @CrossOrigin(origins = "*",allowedHeaders = "*")
-@RequestMapping("api/v1/AuthenticationServer")
+@RequestMapping("AuthenticationServer")
 public class Authentication {
 
     @Autowired
     private AutenticationService _autenticationService;
-
-
-    @GetMapping()
-    public ResponseEntity<?> GetUser(){
-        return new ResponseEntity<>("Hello World", HttpStatus.OK);
-    }
 
     @PostMapping()
     @ResponseBody

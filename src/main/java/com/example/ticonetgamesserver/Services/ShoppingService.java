@@ -47,7 +47,7 @@ public class ShoppingService implements IShopping {
     public ShoppingDTO GenerateNewShop(ShoppingDTO shop) {
 
         try{
-            shop.setShopRegistrationData(new Date());
+            //shop.setShopRegistrationData(new Date());
             shoppingRepositories.save(shop);
 
           return shop;

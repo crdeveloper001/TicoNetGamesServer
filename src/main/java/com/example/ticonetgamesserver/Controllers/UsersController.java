@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @CrossOrigin(origins = "*",allowedHeaders = "*")
-@RequestMapping(path = "api/v1/Users")
+@RequestMapping(path = "Users")
 public class UsersController {
 
     @Autowired
@@ -21,14 +21,14 @@ public class UsersController {
         return new ResponseEntity<>(usersService.ALlUsers(), HttpStatus.OK);
     }
 
-    @PostMapping()
+    @PostMapping("CreateUser")
     @ResponseBody
     public ResponseEntity<?> PostUser(@RequestBody UsersDTO user){
 
         return new ResponseEntity<>(usersService.GenerateNewUser(user),HttpStatus.CREATED);
 
     }
-    @PutMapping()
+    @PutMapping("UpdateUser")
     public ResponseEntity<?> PutUser(@RequestBody UsersDTO userInfo){
 
         return new ResponseEntity<>(usersService.UpdateUserInformation(userInfo),HttpStatus.CREATED);

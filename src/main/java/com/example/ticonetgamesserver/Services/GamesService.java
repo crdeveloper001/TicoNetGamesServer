@@ -47,7 +47,7 @@ public class GamesService implements IGames {
     public GamesDTO GenerateNewGame(GamesDTO game) {
 
         try{
-            game.setGameRegistrationData(new Date());
+            //0game.setGameRegistrationData(new Date());
             gamesRepositories.save(game);
 
           return game;
