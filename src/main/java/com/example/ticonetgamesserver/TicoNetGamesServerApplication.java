@@ -36,7 +36,7 @@ public class TicoNetGamesServerApplication {
                     .antMatchers(HttpMethod.PUT,"Users/UpdateUser").authenticated()
                     .antMatchers(HttpMethod.DELETE,"/Users/{id}").authenticated()
                     .antMatchers(HttpMethod.GET,"/Games").permitAll()
-                    .antMatchers(HttpMethod.PUT,"/Games/CreateGame").authenticated()
+                    .antMatchers(HttpMethod.POST,"/Games/CreateGame").authenticated()
                     .antMatchers(HttpMethod.PUT,"/Games/UpdateGame").authenticated()
                     .antMatchers(HttpMethod.DELETE,"/Games/{id}").authenticated()
                     .antMatchers(HttpMethod.GET,"/Shoppings").authenticated()

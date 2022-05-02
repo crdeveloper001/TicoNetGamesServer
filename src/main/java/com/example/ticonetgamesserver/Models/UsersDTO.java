@@ -18,5 +18,6 @@ public class UsersDTO {
     private int Phone;
     private String Mail;
     private String Password;
+    private String Role;
     private Date UserRegistrationData;
 }

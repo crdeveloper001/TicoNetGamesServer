@@ -34,11 +34,11 @@ public class AutenticationService implements IAutentication {
             String token = getJWTToken.GetAccessToken(credentials.getMail());
 
             UsersDTO UserSuccessPayload = new UsersDTO();
-
             UserSuccessPayload.setName(UserInformationGeneral.getName());
             UserSuccessPayload.setMail(UserInformationGeneral.getMail());
             UserSuccessPayload.setPhone(UserInformationGeneral.getPhone());
             UserSuccessPayload.set_id(UserInformationGeneral.get_id());
+            UserSuccessPayload.setRole(UserInformationGeneral.getRole());
             UserSuccessPayload.setPassword(token);
 
             return UserSuccessPayload;
