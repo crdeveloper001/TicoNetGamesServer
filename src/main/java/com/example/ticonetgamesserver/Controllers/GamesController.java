@@ -33,7 +33,7 @@ public class GamesController {
 
         return new ResponseEntity<>(gamesService.UpdateGameInformation(gameInfo),HttpStatus.CREATED);
     }
-    @DeleteMapping("{id}")
+    @DeleteMapping("DeleteGame/{id}")
     public ResponseEntity<?> DeleteGame(@PathVariable int id){
 
         return new ResponseEntity<>(gamesService.DeleteGame(id),HttpStatus.OK);
