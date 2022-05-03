@@ -19,4 +19,5 @@ public class ShoppingDTO {
     private Long CreditCard;
     private Date CreditCardExpiration;
     private Double Price;
+
 }

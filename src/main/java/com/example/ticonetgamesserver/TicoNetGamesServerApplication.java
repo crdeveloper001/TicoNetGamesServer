@@ -39,10 +39,13 @@ public class TicoNetGamesServerApplication {
                     .antMatchers(HttpMethod.POST,"/Games/CreateGame").authenticated()
                     .antMatchers(HttpMethod.PUT,"/Games/UpdateGame").authenticated()
                     .antMatchers(HttpMethod.DELETE,"/Games/{id}").authenticated()
-                    .antMatchers(HttpMethod.GET,"/Shoppings").authenticated()
+                    .antMatchers(HttpMethod.GET,"/Shoppings/GetShopCart").authenticated()
                     .antMatchers(HttpMethod.POST,"/Shoppings/CreateShop").authenticated()
-                    .antMatchers(HttpMethod.PUT,"/Shoppings").authenticated()
+                    .antMatchers(HttpMethod.PUT,"/Shoppings/UpdateShopCart").authenticated()
                     .antMatchers(HttpMethod.DELETE,"/Shoppings/{id}").authenticated()
+                    .antMatchers(HttpMethod.GET,"/GamesLibraryService/GetGamesLibrary").permitAll()
+                    .antMatchers(HttpMethod.POST,"/GamesLibraryService/CreateGameLibrary").authenticated()
+                    .antMatchers(HttpMethod.DELETE,"/GamesLibraryService/{id}").authenticated()
 
                     .anyRequest().permitAll();
         }

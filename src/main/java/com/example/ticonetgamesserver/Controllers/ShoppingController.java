@@ -15,25 +15,25 @@ public class ShoppingController {
     @Autowired
     private ShoppingService shoppingService;
 
-    @GetMapping()
+    @GetMapping("GetShopCart")
     public ResponseEntity<?> GetShop(){
 
         return new ResponseEntity<>(shoppingService.AllShops(), HttpStatus.OK);
     }
 
-    @PostMapping("CreateShop")
+    @PostMapping("CreateShopCart")
     @ResponseBody
     public ResponseEntity<?> PostShop(@RequestBody ShoppingDTO shop){
 
         return new ResponseEntity<>(shoppingService.GenerateNewShop(shop),HttpStatus.CREATED);
 
     }
-    @PutMapping()
+    @PutMapping("UpdateShopCart")
     public ResponseEntity<?> PutShop(@RequestBody ShoppingDTO shopInfo){
 
         return new ResponseEntity<>(shoppingService.UpdateShopInformation(shopInfo),HttpStatus.CREATED);
     }
-    @DeleteMapping("{id}")
+    @DeleteMapping("DeleteShoppingCart/{id}")
     public ResponseEntity<?> DeleteShop(@PathVariable int id){
 
         return new ResponseEntity<>(shoppingService.DeleteShop(id),HttpStatus.OK);
