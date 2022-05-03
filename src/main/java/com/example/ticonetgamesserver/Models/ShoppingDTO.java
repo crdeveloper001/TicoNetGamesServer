@@ -3,6 +3,7 @@ package com.example.ticonetgamesserver.Models;
 import lombok.*;
 
 import java.util.Date;
+import java.util.List;
 
 @Getter
 @Setter
@@ -19,5 +20,6 @@ public class ShoppingDTO {
     private Long CreditCard;
     private Date CreditCardExpiration;
     private Double Price;
+    private List<GamesDTO> UserInformation;
 
 }

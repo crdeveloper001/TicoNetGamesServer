@@ -16,5 +16,5 @@ public class GamesLibraryDTO {
     private String GameCategory;
     private String GameSize;
     private String GameImage;
-    private List<UsersDTO> UserInformation;
+
 }

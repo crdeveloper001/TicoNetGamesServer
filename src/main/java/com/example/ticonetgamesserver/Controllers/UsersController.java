@@ -33,7 +33,7 @@ public class UsersController {
 
         return new ResponseEntity<>(usersService.UpdateUserInformation(userInfo),HttpStatus.CREATED);
     }
-    @DeleteMapping("{id}")
+    @DeleteMapping("DeleteUser/{id}")
     public ResponseEntity<?> DeleteUser(@PathVariable int id){
 
         return new ResponseEntity<>(usersService.DeleteUserAccount(id),HttpStatus.OK);
