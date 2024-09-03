@@ -19,13 +19,13 @@ import java.util.stream.Collectors;
 
 @RestController
 @CrossOrigin(origins = "*",allowedHeaders = "*")
-@RequestMapping("AuthenticationServer")
+@RequestMapping("api/v1/AuthenticationServer")
 public class Authentication {
 
     @Autowired
     private AutenticationService _autenticationService;
 
-    @PostMapping()
+    @PostMapping("")
     @ResponseBody
     public ResponseEntity<?> login(@RequestBody CredentialsDTO credentials) {
 

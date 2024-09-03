@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @CrossOrigin(origins = "*",allowedHeaders = "*")
-@RequestMapping(path = "Games")
+@RequestMapping(path = "api/v1/Games")
 public class GamesController {
 
     @Autowired

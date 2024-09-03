@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @CrossOrigin(origins = "*",allowedHeaders = "*")
-@RequestMapping("GamesLibraryService")
+@RequestMapping("api/v1/GamesLibraryService")
 public class GamesLibraryController {
 
     @Autowired
