@@ -1,3 +1,5 @@
+package com.example.ticonetgamesserver.Utilities;
+
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.security.core.GrantedAuthority;
