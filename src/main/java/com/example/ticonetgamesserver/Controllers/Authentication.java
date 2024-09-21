@@ -25,7 +25,7 @@ public class Authentication {
     @Autowired
     private AutenticationService _autenticationService;
 
-    @PostMapping("")
+    @PostMapping()
     @ResponseBody
     public ResponseEntity<?> login(@RequestBody CredentialsDTO credentials) {
 
