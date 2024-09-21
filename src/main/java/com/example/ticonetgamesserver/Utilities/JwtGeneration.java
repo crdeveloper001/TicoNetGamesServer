@@ -1,5 +1,3 @@
-package com.example.ticonetgamesserver.Utilities;
-
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.security.core.GrantedAuthority;
@@ -14,7 +12,9 @@ import java.util.stream.Collectors;
 public class JwtGeneration {
 
     public String GetAccessToken(String username) {
-        String secretKey = "Tic0NetG@am#s.";
+        // Updated 64-byte key
+        String secretKey = "Tic0NetG@am#s.123456789012345678901234567890123456789012345678901234567890";
+        
         List<GrantedAuthority> grantedAuthorities = AuthorityUtils
                 .commaSeparatedStringToAuthorityList("ROLE_USER");
 
