@@ -1,6 +1,6 @@
 name: Deploy to Render
 
-# Trigger this workflow on push to the 'main' branch
+# Trigger the workflow on push to the 'main' branch
 on:
   push:
     branches:
@@ -18,6 +18,7 @@ jobs:
       # Step 2: Trigger deployment on Render using Deploy Hook
       - name: Trigger Render Deployment
         run: |
+          echo "Triggering deployment on Render..."
           # Using curl to trigger deployment via Render Deploy Hook
           curl -X POST ${{ secrets.RENDER_DEPLOY_HOOK_URL }}
         # Ensure the secret exists in GitHub repo settings
@@ -25,25 +26,35 @@ jobs:
       # Step 3: Poll Render API to check deployment status
       - name: Wait for Render Deployment to Complete
         run: |
-          SERVICE_ID="srv-crbmbvtds78s7393isvg"
-          TOKEN="${{ secrets.RENDER_API_TOKEN }}"
+          SERVICE_ID="srv-crbmbvtds78s7393isvg"  # Replace with actual SERVICE_ID
+          TOKEN="${{ secrets.RENDER_API_TOKEN }}"  # GitHub secret for API token
           echo "Checking deployment status for Render service $SERVICE_ID..."
 
           STATUS="pending"
           # Loop to check the status of the deployment
           while [ "$STATUS" != "live" ]; do
-            STATUS=$(curl -s -H "Authorization: Bearer $TOKEN" \
-            https://api.render.com/v1/services/$SERVICE_ID \
-            | jq -r .service.status)
+            # Fetching deployment status from Render API
+            RESPONSE=$(curl -s -H "Authorization: Bearer $TOKEN" \
+            https://api.render.com/v1/services/$SERVICE_ID)
 
-            if [ "$STATUS" == "live" ]; then
+            # Extracting the deployment status using jq
+            STATUS=$(echo $RESPONSE | jq -r .service.status)
+            DEPLOY_ID=$(echo $RESPONSE | jq -r .service.lastDeploy.id)
+            DEPLOY_STATUS=$(echo $RESPONSE | jq -r .service.lastDeploy.status)
+
+            echo "Current service status: $STATUS"
+            echo "Latest deployment status: $DEPLOY_STATUS"
+
+            # If deployment is successful
+            if [ "$DEPLOY_STATUS" == "live" ]; then
               echo "Deployment successful!"
               break
-            elif [ "$STATUS" == "failed" ]; then
+            # If deployment fails
+            elif [ "$DEPLOY_STATUS" == "failed" ]; then
               echo "Deployment failed!"
               exit 1
             else
-              echo "Deployment in progress... (status: $STATUS)"
+              echo "Deployment in progress... (status: $DEPLOY_STATUS)"
               sleep 10
             fi
           done
