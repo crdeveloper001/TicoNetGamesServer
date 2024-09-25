@@ -1,0 +1,49 @@
+name: Deploy to Render
+
+# Trigger this workflow on push to the 'main' branch
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Checkout the repository code
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Step 2: Trigger deployment on Render using Deploy Hook
+      - name: Trigger Render Deployment
+        run: |
+          # Using curl to trigger deployment via Render Deploy Hook
+          curl -X POST ${{ secrets.RENDER_DEPLOY_HOOK_URL }}
+        # Ensure the secret exists in GitHub repo settings
+
+      # Step 3: Poll Render API to check deployment status
+      - name: Wait for Render Deployment to Complete
+        run: |
+          SERVICE_ID="srv-crbmbvtds78s7393isvg"
+          TOKEN="${{ secrets.RENDER_API_TOKEN }}"
+          echo "Checking deployment status for Render service $SERVICE_ID..."
+
+          STATUS="pending"
+          # Loop to check the status of the deployment
+          while [ "$STATUS" != "live" ]; do
+            STATUS=$(curl -s -H "Authorization: Bearer $TOKEN" \
+            https://api.render.com/v1/services/$SERVICE_ID \
+            | jq -r .service.status)
+
+            if [ "$STATUS" == "live" ]; then
+              echo "Deployment successful!"
+              break
+            elif [ "$STATUS" == "failed" ]; then
+              echo "Deployment failed!"
+              exit 1
+            else
+              echo "Deployment in progress... (status: $STATUS)"
+              sleep 10
+            fi
+          done
